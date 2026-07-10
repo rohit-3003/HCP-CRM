@@ -15,6 +15,7 @@ services:
     region: ohio
     # Since our Dockerfile is in the backend directory
     dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
     envVars:
       - key: DATABASE_URL
         fromDatabase:
