@@ -12,27 +12,7 @@ This project was built focusing on an "AI-First" paradigm, shifting from traditi
 **Database:** PostgreSQL (SQLAlchemy ORM)
 **Infrastructure:** Docker Compose
 
-## Screenshots
 
-*(Note: Replace these placeholders with actual screenshots before submission)*
-
-### Dashboard & UI
-![Dashboard](./assets/dashboard.png)
-
-### Chat Interface
-![Chat Interface](./assets/chat_interface.png)
-
-### Structured Form
-![Structured Form](./assets/structured_form.png)
-
-### AI Insights Panel
-![AI Insights Panel](./assets/ai_insights.png)
-
-### Swagger UI (Backend)
-![Swagger UI](./assets/swagger_ui.png)
-
-### Docker Containers
-![Docker Containers Running](./assets/docker_containers.png)
 
 ### System Architecture Diagram
 
