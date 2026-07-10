@@ -5,8 +5,14 @@ from app.agent.state import AgentState
 from app.agent.prompts.prompts import INTENT_DETECTION_PROMPT, ENTITY_EXTRACTION_PROMPT, RESPONSE_PROMPT
 from app.core.config import settings
 
+# Instantiate globally to prevent connection pool memory leaks
+_llm_instance = None
+
 def get_llm():
-    return ChatGroq(model="llama-3.1-8b-instant", api_key=settings.GROQ_API_KEY)
+    global _llm_instance
+    if _llm_instance is None:
+        _llm_instance = ChatGroq(model="llama-3.1-8b-instant", api_key=settings.GROQ_API_KEY)
+    return _llm_instance
 
 def detect_intent_node(state: AgentState):
     llm = get_llm()

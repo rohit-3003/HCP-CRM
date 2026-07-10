@@ -12,11 +12,11 @@ def tool_edit_interaction(db: Session, entities: dict, current_interaction_id: i
             return {"status": "error", "message": "Interaction ID not found in context or entities."}
             
         update_data = {}
-        if "duration" in entities:
+        if entities.get("duration") is not None:
             update_data["duration"] = entities["duration"]
-        if "summary" in entities:
+        if entities.get("summary") is not None:
             update_data["discussion_summary"] = entities["summary"]
-        if "location" in entities:
+        if entities.get("location") is not None:
             update_data["location"] = entities["location"]
             
         if not update_data:

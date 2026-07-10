@@ -9,10 +9,10 @@ def tool_log_interaction(db: Session, entities: dict, raw_chat: str):
     """
     try:
         hcp_id = entities.get("hcp_id")
-        duration = entities.get("duration", 15)
-        summary = entities.get("summary", "No summary provided.")
-        sentiment = entities.get("sentiment", "Neutral")
-        location = entities.get("location", "Clinic")
+        duration = entities.get("duration") or 15
+        summary = entities.get("summary") or "No summary provided."
+        sentiment = entities.get("sentiment") or "Neutral"
+        location = entities.get("location") or "Clinic"
 
         if not hcp_id:
             # Try finding HCP by name if ID isn't present
