@@ -1,0 +1,23 @@
+services:
+  # Managed PostgreSQL Database
+  - type: postgres
+    name: crm-db
+    plan: free
+    databaseName: crm_db
+    user: crm_user
+
+  # FastAPI Web Service
+  - type: web
+    name: crm-backend
+    env: docker
+    plan: free
+    region: ohio
+    # Since our Dockerfile is in the backend directory
+    dockerfilePath: ./backend/Dockerfile
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: crm-db
+          property: connectionString
+      - key: GROQ_API_KEY
+        sync: false # Requires manual entry in the dashboard
