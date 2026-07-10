@@ -2,6 +2,7 @@ databases:
   # Managed PostgreSQL Database
   - name: crm-db
     plan: free
+    region: oregon
     databaseName: crm_db
     user: crm_user
 
@@ -12,7 +13,7 @@ services:
     name: crm-backend
     env: docker
     plan: free
-    region: ohio
+    region: oregon
     # Since our Dockerfile is in the backend directory
     dockerfilePath: ./backend/Dockerfile
     dockerContext: ./backend
