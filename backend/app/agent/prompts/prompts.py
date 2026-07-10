@@ -43,5 +43,6 @@ Here are the tool results:
 
 User Message: {user_input}
 
-Generate a concise, professional response summarizing what was done. Keep it brief and friendly.
+Generate a concise, professional response summarizing what was done. 
+IMPORTANT: If the tool results indicate an error (e.g. "status": "error"), you MUST inform the user about the error. Do not hallucinate or pretend the action succeeded if it failed. Keep it brief and friendly.
 """

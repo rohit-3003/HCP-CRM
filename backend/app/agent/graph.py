@@ -36,7 +36,13 @@ def execute_tool_node(state: AgentState):
                 
         elif intent == "edit_interaction":
             current_id = state.get("current_interaction", {}).get("id")
-            result = tool_edit_interaction(db, entities, current_interaction_id=current_id)
+            if current_id:
+                result = tool_edit_interaction(db, entities, current_interaction_id=current_id)
+            else:
+                # Fallback if AI misclassified the first message as an edit
+                result = tool_log_interaction(db, entities, raw_chat=user_input)
+                if result.get("status") == "success":
+                    state["current_interaction"] = {"id": result.get("interaction_id")}
             
         elif intent == "get_hcp_profile":
             result = tool_get_hcp_profile(db, entities)

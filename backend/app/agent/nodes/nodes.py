@@ -27,9 +27,10 @@ def detect_intent_node(state: AgentState):
     if intent not in valid_intents:
         intent = "general_chat"
         
-    state["intent"] = intent
-    state["execution_steps"] = state.get("execution_steps", []) + [f"Detect Intent: {intent}"]
-    return state
+    return {
+        "intent": intent,
+        "execution_steps": [f"Detect Intent: {intent}"]
+    }
 
 def extract_entities_node(state: AgentState):
     llm = get_llm()
@@ -57,13 +58,14 @@ def extract_entities_node(state: AgentState):
     except json.JSONDecodeError:
         entities = {}
         
-    state["entities"] = entities
-    state["sentiment"] = entities.get("sentiment", "Neutral")
-    state["ai_summary"] = entities.get("summary", "")
-    state["missing_fields"] = entities.get("missing_fields", [])
-    state["confidence_scores"] = entities.get("confidence_scores", {})
-    state["execution_steps"] = state.get("execution_steps", []) + ["Extract Entities"]
-    return state
+    return {
+        "entities": entities,
+        "sentiment": entities.get("sentiment", "Neutral"),
+        "ai_summary": entities.get("summary", ""),
+        "missing_fields": entities.get("missing_fields", []),
+        "confidence_scores": entities.get("confidence_scores", {}),
+        "execution_steps": ["Extract Entities"]
+    }
 
 def tool_router(state: AgentState):
     return state["intent"]
@@ -74,7 +76,8 @@ def response_node(state: AgentState):
     prompt = RESPONSE_PROMPT.format(tool_results=results, user_input=state["user_input"])
     
     response = llm.invoke(prompt)
-    state["final_response"] = response.content
-    state["messages"] = state.get("messages", []) + [HumanMessage(content=state["user_input"]), response]
-    state["execution_steps"] = state.get("execution_steps", []) + ["Generate Response"]
-    return state
+    return {
+        "final_response": response.content,
+        "messages": [HumanMessage(content=state["user_input"]), response],
+        "execution_steps": ["Generate Response"]
+    }
