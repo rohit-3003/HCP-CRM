@@ -1,10 +1,11 @@
-services:
+databases:
   # Managed PostgreSQL Database
-  - type: postgres
-    name: crm-db
+  - name: crm-db
     plan: free
     databaseName: crm_db
     user: crm_user
+
+services:
 
   # FastAPI Web Service
   - type: web
